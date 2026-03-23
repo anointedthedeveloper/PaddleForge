@@ -20,7 +20,11 @@ export default function Document() {
         {/* Android / general */}
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="PaddleForge" />
-        <link rel="icon" href="/icons/icon-192.png" />
+
+        {/* Favicon */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/icons/icon-192.png" sizes="192x192" />
+        <link rel="shortcut icon" href="/favicon.svg" />
 
         {/* Open Graph */}
         <meta property="og:title" content="PaddleForge – AI Pong Game" />
