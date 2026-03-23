@@ -13,10 +13,12 @@ const PRECACHE = [
   "/icons/icon-512.png",
 ];
 
-// Install: precache core assets
+// Install: precache core assets — non-fatal so SW always installs
 self.addEventListener("install", (e) => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE))
+    caches.open(CACHE_NAME).then((cache) =>
+      Promise.allSettled(PRECACHE.map((url) => cache.add(url)))
+    )
   );
   self.skipWaiting();
 });
