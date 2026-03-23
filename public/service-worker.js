@@ -1,4 +1,8 @@
 const CACHE_NAME = "paddleforge-v2";
+
+self.addEventListener("message", (e) => {
+  if (e.data?.type === "SKIP_WAITING") self.skipWaiting();
+});
 const OFFLINE_URL = "/offline.html";
 
 const PRECACHE = [

@@ -277,7 +277,21 @@ export default function GameCanvas() {
   // Register service worker
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+      navigator.serviceWorker
+        .register("/service-worker.js", { scope: "/" })
+        .then((reg) => {
+          // Check for SW updates in background
+          reg.addEventListener("updatefound", () => {
+            const sw = reg.installing;
+            if (sw) sw.addEventListener("statechange", () => {
+              if (sw.state === "installed" && navigator.serviceWorker.controller) {
+                // New version available – silently activate on next visit
+                sw.postMessage({ type: "SKIP_WAITING" });
+              }
+            });
+          });
+        })
+        .catch(() => {});
     }
   }, []);
 
